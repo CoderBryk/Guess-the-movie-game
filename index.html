@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <meta name="HandheldFriendly" content="true">
+        <meta content="width=device-width, initial-scale=1" name="viewport">
+        <title>Movies||Guess the name of the movie</title>
+            <link rel="stylesheet" href="index.css">
+    </head>
+        <body>
+            <div class="guess">
+                <div class="text">
+                    <span style="--delay:0.1s">G</span>
+                    <span style="--delay:0.2s">u</span>
+                    <span style="--delay:0.3s">e</span>
+                    <span style="--delay:0.4s">s</span>
+                    <span style="--delay:0.5s">s</span>
+                    <span style="--delay:0.6s"></span>
+                    <span style="--delay:0.7s">T</span>
+                    <span style="--delay:0.8s">h</span>
+                    <span style="--delay:0.9s">e</span>
+                    <span style="--delay:1s"></span>
+                    <span style="--delay:1s"></span>
+                    <span style="--delay:1.1s">M</span>
+                    <span style="--delay:1.2s">o</span>
+                    <span style="--delay:1.3s">v</span>
+                    <span style="--delay:1.4s">i</span>
+                    <span style="--delay:1.5s">e</span>
+                    <span style="--delay:1.6s">.</span>
+                    <span style="--delay:1.7s">.</span>
+                    <span style="--delay:1.8s">.</span>
+                  </div><br> 
+                  <img src="Camera.png"> 
+              <h3 class="messages" id="messages">
+              </h3>
+              <input class="input" id="input" type="text"> </input>
+              <button class="button" id="button" type="button"> Click Here To Start </button>
+              <h4>NOTE: THIS IS CASE SENSITIVE</h4>
+            </div>
+           <script>         
+const messgages = document.querySelector("#messages");
+const button = document.querySelector("#button");
+const input = document.querySelector("#input");
+let gameWords = [
+"Spiderman","Avatars","Lion" + "King","Terminator","Joker","Jurassic" +" "+ "Park","Harry" +" "+ "Potter","Fight" +" "+ "Club","Jaws","Shrek","Transformers",
+"Back" +" "+ "To" +" "+ "The" +" "+ "Future","Psycho","The" +" "+ "Matrix","The" +" "+ "Avengers","Star" +" "+ "Wars","Frozen","Fast" +" "+ "and"+ " "+ "Furious","SkyFall","Toy" +"Story","Aladdin","Zootopia","Despicable"+ "Me"+ "3","Shrek","Jumanji",
+"Black"+ " "+ "Widow","Batman","Deadpool","Mission" + " " + "Impossible", "Coco", "Zhan" +" " +"Lang", "Twilight" + " "+ "Saga","The" +" "+ "Secret" + "Life" + "of" + "Pets"
+];
+let newWords = "";
+let randWords = "";
+let playGame = false;
+const generateWords = () => {
+let words = Math.floor(Math.random() * gameWords.length);
+let genWords = gameWords[words];
+return genWords;
+};
+const scrambleWords = (arr) => {
+for (let i = arr.length - 1; i > 0; i--) {
+let temp = arr[i];
+let j = Math.floor(Math.random() * (i + 1));
+arr[i] = arr[j];
+arr[j] = temp;
+}
+return arr;
+};
+button.addEventListener("click", function () {
+if (!playGame) {
+playGame = true;
+button.innerHTML = "Guess";
+document.querySelector("#input").style.display = "block";
+newWords = generateWords();
+randWords = scrambleWords(newWords.split("")).join("");
+messages.innerHTML = `Guess the word: ${randWords}.`;
+} else {
+let getWords = input.value;
+if (getWords === newWords) {
+playGame = false;
+messages.innerHTML = `Awesome it's correct. It is ${newWords}.`;
+document.querySelector("#input").style.display = "none";
+button.innerHTML = "Next Word";
+input.value = "";
+} else {
+messages.innerHTML = `Sorry, You missed it. Better Luck Next Time, ${randWords}.`;
+}
+}
+});
+</script>
+</body>
+</html>
